@@ -31,6 +31,7 @@ void eel108_replay(Int_t RunNumber=0, Int_t MaxEvent=0)
     pathList.push_back("./raw/../raw.copiedtotape");
     pathList.push_back("./cache");
     pathList.push_back("/net/cdaq/cdaql1data/coda/data/raw");
+    pathList.push_back("/cache/hallc/c-nps/raw");
   }
 
   for( const auto& path: pathList ) {

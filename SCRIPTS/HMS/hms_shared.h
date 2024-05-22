@@ -12,6 +12,7 @@ vector<TString> paths_to_data() {
   pathList.push_back(".");
   pathList.push_back("./raw");
   pathList.push_back("./cache");
+  pathList.push_back("/cache/hallc/c-nps/raw");
   //pathList.push_back("/work/halla/parity/disk1/bob/hallc");
   //    pathList.push_back("./raw2");
 //  pathList.push_back("./raw-sp18");

@@ -1,8 +1,8 @@
 //Not intended to be standalone. Must be called in SCRIPT from top directory of hallc_replay_XEM
 //Same functionality as any SCRIPT in hallc_replay_XEM
 
-#include "/home/cdaq/nps-2023/nps_replay/SCRIPTS/HMS/hms_shared.h"
-
+// #include "/home/cdaq/nps-2023/nps_replay/SCRIPTS/HMS/hms_shared.h"
+#include "/home/ehingerl/hallc/software/nps_replay_for_LAD/SCRIPTS/HMS/hms_shared.h"
 void replay_production_hms(Int_t RunNumber=0, Int_t MaxEvent=0) {
 
   // Get RunNumber and MaxEvent if not provided.
@@ -75,7 +75,7 @@ void replay_production_hms(Int_t RunNumber=0, Int_t MaxEvent=0) {
   analyzer->Process(run);
 
   // Create report file from template
-  analyzer->PrintReport(gHcParms->GetString("g_ctp_template_filename"),
-  			report_file);  // optional
+  // analyzer->PrintReport(gHcParms->GetString("g_ctp_template_filename"),
+  // 			report_file);  // optional
 
 }
