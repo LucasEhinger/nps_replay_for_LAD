@@ -9,20 +9,7 @@ ifstream bcmFile;
 
 vector<TString> paths_to_data() {
   vector<TString> pathList;
-  pathList.push_back(".");
-  pathList.push_back("./raw");
-  pathList.push_back("./cache");
   pathList.push_back("/cache/hallc/c-nps/raw");
-  // pathList.push_back("/work/halla/parity/disk1/bob/hallc");
-  //     pathList.push_back("./raw2");
-  //  pathList.push_back("./raw-sp18");
-  //  pathList.push_back("./raw-sp19");
-  //  pathList.push_back("./raw/../raw.copiedtotape");
-  //  pathList.push_back("./CACHE_LINKS/cache_pionlt");
-  //  pathList.push_back("./CACHE_LINKS/cache_cafe");
-  //  pathList.push_back("./CACHE_LINKS/cache_sp18");
-  //  pathList.push_back("./CACHE_LINKS/cache_sp19");
-  //  pathList.push_back("./CACHE_LINKS/cache_xem2");
   return pathList;
 }
 
@@ -43,17 +30,18 @@ void setupParms(Int_t RunNumber) {
   gHcParms->Load(gHcParms->GetString("g_ctp_optics_filename"));
   // Load parameters for SHMS trigger configuration
   gHcParms->Load(gHcParms->GetString("g_ctp_trig_config_filename"));
-  // Load hpcentral momentum offset
 
+  // Load hpcentral momentum offset
   gHcParms->Load("PARAM/HMS/GEN/hpcentral_function_sp18.param");
-  // Load fadc debug parameters
+
+  // // Load fadc debug parameters
   gHcParms->Load("PARAM/HMS/GEN/h_fadc_debug_sp18.param");
 
   // Load BCM values
   ifstream bcmFile;
-  //  TString bcmParamFile = Form("PARAM/HMS/BCM/bcmcurrent_%d.param", RunNumber);
-  //  bcmFile.open(bcmParamFile);
-  //  if (bcmFile.is_open()) gHcParms->Load(bcmParamFile);
+   TString bcmParamFile = Form("PARAM/HMS/BCM/bcmcurrent_%d.param", RunNumber);
+   bcmFile.open(bcmParamFile);
+   if (bcmFile.is_open()) gHcParms->Load(bcmParamFile);
 
   // Load the Hall C detector map
   gHcDetectorMap = new THcDetectorMap();
@@ -96,25 +84,27 @@ void setupApparatus() {
   gHaApps->Add(beam);
   // Add physics modules
   // Add beam current monitor module
-  if (bcmFile.is_open()) {
-    THcBCMCurrent *bcm = new THcBCMCurrent("H.bcm", "BCM Module");
-    gHaPhysics->Add(bcm);
-  }
-  // Calculate reaction point
-  THcReactionPoint *hrp = new THcReactionPoint("H.react", "HMS reaction point", "H", "H.rb");
-  gHaPhysics->Add(hrp);
-  // Calculate extended target corrections
-  THcExtTarCor *hext = new THcExtTarCor("H.extcor", "HMS extended target corrections", "H", "H.react");
-  gHaPhysics->Add(hext);
-  // Calculate golden track quantities
-  THaGoldenTrack *gtr = new THaGoldenTrack("H.gtr", "HMS Golden Track", "H");
-  gHaPhysics->Add(gtr);
-  // Calculate primary (scattered beam - usually electrons) kinematics
-  THcPrimaryKine *hkin = new THcPrimaryKine("H.kin", "HMS Single Arm Kinematics", "H", "H.rb");
-  gHaPhysics->Add(hkin);
-  // Calculate the hodoscope efficiencies
-  THcHodoEff *heff = new THcHodoEff("hhodeff", "HMS hodo efficiency", "H.hod");
-  gHaPhysics->Add(heff);
+  // if (bcmFile.is_open()) {
+  //   THcBCMCurrent *bcm = new THcBCMCurrent("H.bcm", "BCM Module");
+  //   gHaPhysics->Add(bcm);
+  // }
+  // // Calculate reaction point
+  // THcReactionPoint *hrp = new THcReactionPoint("H.react", "HMS reaction point", "H", "H.rb");
+  // gHaPhysics->Add(hrp);
+  // // Calculate extended target corrections
+  // THcExtTarCor *hext = new THcExtTarCor("H.extcor", "HMS extended target corrections", "H", "H.react");
+  // gHaPhysics->Add(hext);
+  // // Calculate golden track quantities
+  // THaGoldenTrack *gtr = new THaGoldenTrack("H.gtr", "HMS Golden Track", "H");
+  // gHaPhysics->Add(gtr);
+  // // Calculate primary (scattered beam - usually electrons) kinematics
+  // THcPrimaryKine *hkin = new THcPrimaryKine("H.kin", "HMS Single Arm Kinematics", "H", "H.rb");
+  // gHaPhysics->Add(hkin);
+  // // Calculate the hodoscope efficiencies
+  // THcHodoEff *heff = new THcHodoEff("hhodeff", "HMS hodo efficiency", "H.hod");
+  // gHaPhysics->Add(heff);
+
+
 
   // Add handler for prestart event 125.
   THcConfigEvtHandler *ev125 = new THcConfigEvtHandler("HC", "Config Event type 125");
@@ -135,15 +125,24 @@ void setupApparatus() {
   gHaEvtHandlers->Add(hscaler);
 
   // Add event handler for helicity scalers
-  THcHelicityScaler *hhelscaler = new THcHelicityScaler("H", "Hall C helicity scaler");
-  //    hhelscaler->SetDebugFile("HHelScaler.txt");
-  hhelscaler->SetROC(5);
-  //    hhelscaler->SetUseFirstEvent(kTRUE);
-  gHaEvtHandlers->Add(hhelscaler);
+  // THcHelicityScaler *hhelscaler = new THcHelicityScaler("H", "Hall C helicity scaler");
+  // //    hhelscaler->SetDebugFile("HHelScaler.txt");
+  // hhelscaler->SetROC(5);
+  // //    hhelscaler->SetUseFirstEvent(kTRUE);
+  // gHaEvtHandlers->Add(hhelscaler);
 
   // Add event handler for DAQ configuration event
   THcConfigEvtHandler *hconfig = new THcConfigEvtHandler("hconfig", "Hall C configuration event handler");
   gHaEvtHandlers->Add(hconfig);
 
   return;
+}
+
+
+void setupLAD(){
+  THcLADSpectrometer *LAD = new THcLADSpectrometer("L", "LAD");
+  gHaApps->Add(LAD);
+
+  // THcLADHodoscope *hod = new THcLADHodoscope("hod", "LAD Hodoscope");
+  // LAD->AddDetector(hod);
 }
