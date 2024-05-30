@@ -166,11 +166,11 @@ void replay_production_skim_LAD(int RunNumber=0, int MaxEvent=0, int FirstEvent 
   //=:=:=:=:=:=:=:=:=:=:=
   // Add LAD Spectrometer
   //=:=:=:=:=:=:=:=:=:=:=
-  THcLADSpectrometer* LAD = new THcLADSpectrometer("L", "LAD");
-  gHaApps->Add(LAD);
+  // THcLADSpectrometer* LAD = new THcLADSpectrometer("L", "LAD");
+  // gHaApps->Add(LAD);
 
-  THcLADHodoscope* lhod = new THcLADHodoscope("hod", "Hodoscope");
-  LAD->AddDetector(lhod);
+  // THcLADHodoscope* lhod = new THcLADHodoscope("hod", "Hodoscope");
+  // LAD->AddDetector(lhod);
 
   //=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
   // Global Objects & Event Handlers
