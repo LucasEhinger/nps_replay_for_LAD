@@ -41,3 +41,7 @@ cminch=2.54
 #include "PARAM/HMS/CAL/hcal_cuts_nps23.param"
 
 
+; General LAD parameter files
+#include "PARAM/LAD/HODO/lhodo_geom.param"
+
+

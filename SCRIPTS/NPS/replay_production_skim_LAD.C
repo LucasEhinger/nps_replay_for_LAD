@@ -1,6 +1,6 @@
 #include "MultiFileRun.h"
 
-void replay_production_skim_NPS_HMS(int RunNumber=0, int MaxEvent=0, int FirstEvent = 1, int MaxSegment = 1, int FirstSegment = 0, const char* fname_prefix = "nps_coin")
+void replay_production_skim_LAD(int RunNumber=0, int MaxEvent=0, int FirstEvent = 1, int MaxSegment = 1, int FirstSegment = 0, const char* fname_prefix = "nps_coin")
 {
   cout << "The SKIM replay is currently not set up to do segments.\n";
   cout << "You will overwrite files if you do not heed this warning.\n";
@@ -162,6 +162,15 @@ void replay_production_skim_NPS_HMS(int RunNumber=0, int MaxEvent=0, int FirstEv
 
   THcNPSTrackInfo* nps_trk = new THcNPSTrackInfo("NPS.cal.trk", "NPS Track Info", "NPS", "H.react");
   gHaPhysics->Add(nps_trk);
+
+  //=:=:=:=:=:=:=:=:=:=:=
+  // Add LAD Spectrometer
+  //=:=:=:=:=:=:=:=:=:=:=
+  THcLADSpectrometer* LAD = new THcLADSpectrometer("L", "LAD");
+  gHaApps->Add(LAD);
+
+  THcLADHodoscope* lhod = new THcLADHodoscope("hod", "Hodoscope");
+  LAD->AddDetector(lhod);
 
   //=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
   // Global Objects & Event Handlers

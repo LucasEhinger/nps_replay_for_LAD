@@ -1,0 +1,6 @@
+; Number of hodoscopes
+lhod_num_planes = 1
+
+; Number of hodoscope paddles per layer
+      lhod_0_nr = 1
+      lhod_1_nr = 1
