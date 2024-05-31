@@ -1,0 +1,11 @@
+# NPS
+# 1h gtargmass_amu= 1.00794
+# 2d gtargmass_amu = 2.014
+# 12C gtargmass_amu= 12.0107
+# 27Al gtargmass_amu= 26.98
+# 
+
+0 - 99999
+ebeam = 10.540481931142118
+ltheta = -12.47
+lpcentral = 6.667
